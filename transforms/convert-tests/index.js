@@ -100,7 +100,7 @@ module.exports = function transformer(file, api) {
   }
 
   function getNewTestMethod(funcNode, opts = {}) {
-    opts.args ??= [];
+    opts.args = opts.args ?? [];
     const body = [...funcNode.body.body];
 
     // done argument

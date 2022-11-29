@@ -1,6 +1,6 @@
 {
   "name": "ember-mocha-to-qunit-codemod",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "lint": "eslint --cache .",
     "test": "codemod-cli test",
@@ -39,7 +39,7 @@
     "prettier": "^2.8.0"
   },
   "engines": {
-    "node": "10.* || 12.* || >= 14"
+    "node": "14.* || >= 16"
   },
   "jest": {
     "testEnvironment": "node"
