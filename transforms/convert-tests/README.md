@@ -1,20 +1,20 @@
-# mocha-to-qunit
+# convert-tests
 
 
 ## Usage
 
 ```
-npx ember-mocha-to-qunit-codemod mocha-to-qunit path/of/files/ or/some**/*glob.js
+npx ember-mocha-to-qunit-codemod convert-tests path/of/files/ or/some**/*glob.js
 
 # or
 
 yarn global add ember-mocha-to-qunit-codemod
-ember-mocha-to-qunit-codemod mocha-to-qunit path/of/files/ or/some**/*glob.js
+ember-mocha-to-qunit-codemod convert-tests path/of/files/ or/some**/*glob.js
 ```
 
 ## Local Usage
 ```
-node ./bin/cli.js mocha-to-qunit path/of/files/ or/some**/*glob.js
+node ./bin/cli.js convert-tests path/of/files/ or/some**/*glob.js
 ```
 
 ## Post execution steps
@@ -274,7 +274,7 @@ function wrap(func) {
 
 module('desc', wrap(function() {
   test('test', function(assert) {
-    // Migrated from mocha, consider using qunit assertions instead
+    //ember-mocha-to-qunit-codemod: migrated from mocha, consider using qunit assertions instead
     assert.expect(0);
 
     let x = 'test';
@@ -313,7 +313,7 @@ import { module, test } from 'qunit';
 
 module('describe', hooks => {
   test('test 1', async function(assert) {
-    // Migrated from mocha, consider using qunit assertions instead
+    //ember-mocha-to-qunit-codemod: migrated from mocha, consider using qunit assertions instead
     assert.expect(0);
 
     if (1 === 3) {
@@ -322,7 +322,7 @@ module('describe', hooks => {
   });
 
   test('test 2', function(assert) {
-    // Migrated from mocha, consider using qunit assertions instead
+    //ember-mocha-to-qunit-codemod: migrated from mocha, consider using qunit assertions instead
     assert.expect(0);
 
     const done = assert.async();
@@ -358,7 +358,7 @@ import { module, test } from 'qunit';
 
 module('describe', hooks => {
   test('test', function(assert) {
-    // Migrated from mocha, consider using qunit assertions instead
+    //ember-mocha-to-qunit-codemod: migrated from mocha, consider using qunit assertions instead
     assert.expect(0);
 
     if (1 === 3) {
