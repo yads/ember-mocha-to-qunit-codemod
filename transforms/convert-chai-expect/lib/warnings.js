@@ -1,0 +1,24 @@
+'use strict';
+
+module.exports = {
+  qunitAssertionsExtras: {
+    shown: false,
+    message: "Ensure you add 'qunit-assertions-extras' package.",
+  },
+  qunitAssertClose: {
+    shown: false,
+    message: "Ensure you add 'qunit-assert-close' package.",
+  },
+  qunitAssertCompare: {
+    shown: false,
+    message: "Ensure you add 'qunit-assert-compare' package.",
+  },
+  qunitDom: {
+    shown: false,
+    message: "Ensure you add 'qunit-dom' package.",
+  },
+  qunitSinonAssertions: {
+    shown: false,
+    message: "Ensure you add 'qunit-sinon-assertions",
+  },
+};
