@@ -54,7 +54,17 @@ function assertionInfo(path) {
 }
 
 function basicMatcher(chai) {
-  return function (path) {
+  return function (path, j) {
+    // ensure we're in a function that has an assert argument
+    const func = j(path).closest(j.FunctionExpression);
+    if (func.length === 0) {
+      return false;
+    }
+
+    if (!func.get('params').value.some((p) => p.type === 'Identifier' && p.name === 'assert')) {
+      return false;
+    }
+
     let property = findLastMember(path).value.property;
     if (!Array.isArray(chai)) {
       chai = [chai];

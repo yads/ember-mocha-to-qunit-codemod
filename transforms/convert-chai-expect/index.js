@@ -48,7 +48,11 @@ module.exports = function transformer(file, api) {
   }
 
   function ensureAssert(path) {
-    const func = j(path).closest(j.FunctionExpression).at(0);
+    const func = j(path).closest(j.FunctionExpression);
+    if (func.length === 0) {
+      return;
+    }
+
     const params = func.get('params').value;
     if (params.length !== 1) {
       params.push(j.identifier('assert'));
