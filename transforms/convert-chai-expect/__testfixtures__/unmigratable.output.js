@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import chai from 'chai';
 import { module, test } from 'qunit';
 
 module('mod', hooks => {

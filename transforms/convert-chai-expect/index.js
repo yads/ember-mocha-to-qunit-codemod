@@ -70,7 +70,10 @@ module.exports = function transformer(file, api) {
     let chaiImports = root.find(j.ImportDeclaration, {
       source: { value: 'chai' },
     });
-    if (chaiImports.find(j.ImportSpecifier).length === 0) {
+    if (
+      chaiImports.find(j.ImportSpecifier).length === 0 &&
+      chaiImports.find(j.ImportDefaultSpecifier).length === 0
+    ) {
       chaiImports.remove();
     }
   }
