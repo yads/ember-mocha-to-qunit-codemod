@@ -54,8 +54,8 @@ module.exports = function transformer(file, api) {
     }
 
     const params = func.get('params').value;
-    if (params.length !== 1) {
-      params.push(j.identifier('assert'));
+    if (params.length < 1 || params[0].name !== 'assert') {
+      params.unshift(j.identifier('assert'));
     }
   }
 

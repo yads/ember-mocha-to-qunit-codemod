@@ -139,4 +139,10 @@ module('mod', hooks => {
     expect(result).to.throw(TypeError, 'x', 'Assertion Message');
     expect(result, 'Assertion Message').to.throw();
   });
+
+  // test.each handled correctly
+  const testTable = [[true, true]]
+  test.each('Contains table', testTable, function(assert, [value, expected]) {
+    expect(value).to.eq(expected);
+  })
 });
