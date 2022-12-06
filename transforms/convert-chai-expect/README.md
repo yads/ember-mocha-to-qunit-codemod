@@ -22,7 +22,6 @@ node ./bin/cli.js convert-chai-expect path/of/files/ or/some**/*glob.js
 * Not all assertions are supported. Unsupported assertions will not be migrated.
 * Supports assertions from the following chai plugins:
   * [chai-dom](https://www.npmjs.com/package/chai-dom)
-  * [sinon-chai](https://www.npmjs.com/package/sinon-chai)
 * Some assertions require third party qunit plugins. These include:
   * [qunit-assertions-extras](https://www.npmjs.com/package/qunit-assertions-extra)
   * [qunit-assert-close](https://www.npmjs.com/package/qunit-assert-close)
@@ -30,6 +29,31 @@ node ./bin/cli.js convert-chai-expect path/of/files/ or/some**/*glob.js
   * [qunit-dom](https://npmjs.com/package/qunit-dom)
 * If a migration results in assertions listed above a warning message will be displayed.
 Ensure you add any required plugins to your project.
+
+## Custom migrations
+
+You can use any number of custom chai migrations when running this codemod.
+```
+npx ember-mocha-to-qunit-codemod convert-chai-expect path/of/files/ or/some**/*glob.js --custom-migration path/to/migration.js
+```
+
+Your migration should export a create method that takes a utils object as a parameter and returns a migration object with the following signature:
+```
+module.exports.create = function (utils) {
+  return {
+    matcher(path, j) {
+      // return true if this transform should be applied to the path
+      ...
+    },
+    transform(path, j) {
+      // update the path in some way
+      ...
+    }
+  }
+}
+```
+
+See [utils.js](lib/utils.js) for all functions available from the utils object.
 
 ## Input / Output
 

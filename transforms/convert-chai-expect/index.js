@@ -1,5 +1,27 @@
 const { getParser } = require('codemod-cli').jscodeshift;
-const migrations = require('./lib/migrations');
+const { getOptions } = require('codemod-cli');
+const utils = require('./lib/utils');
+
+function getMigrations() {
+  const options = getOptions();
+
+  const migrations = [...require('./lib/migrations')];
+  if (options.customMigration) {
+    let customMigrations;
+    if (options.customMigration instanceof Array) {
+      customMigrations = options.customMigration.map((m) => customMigration(m));
+    } else {
+      customMigrations = [customMigration(options.customMigration)];
+    }
+    migrations.push(...customMigrations);
+  }
+
+  return migrations;
+}
+
+function customMigration(file) {
+  return require(file).create(utils);
+}
 
 module.exports = function transformer(file, api) {
   const j = getParser(api);
@@ -85,7 +107,8 @@ module.exports = function transformer(file, api) {
       },
     })
     .forEach(ensureAssert);
-  migrations.forEach(({ matcher, transform }) => {
+
+  getMigrations().forEach(({ matcher, transform }) => {
     expects.forEach((path) => {
       if (matcher(path, j)) {
         transform(path, j);
