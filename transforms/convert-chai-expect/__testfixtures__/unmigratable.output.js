@@ -17,7 +17,7 @@ module('mod', hooks => {
 
   test('with some migrated expects', function (assert) {
     expect('foo').to.be.foo;
-    assert.equal('foo', 'foo');
+    assert.strictEqual('foo', 'foo');
   });
 
   test('unmigratable special cases', function (assert) {

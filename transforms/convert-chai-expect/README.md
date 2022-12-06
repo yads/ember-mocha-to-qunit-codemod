@@ -136,7 +136,7 @@ module('mod', hooks => {
   });
 
   // expected-closeto
-  test('Contains expects expected-match', function () {
+  test('Contains expects expected-match', function() {
     expect(165, 'check whether the given number exists within the provided delta').to.be.closeTo(168, 3);
     expect(2.5).to.be.closeTo(2, 0.5);
     expect(165, 'check whether the given number exists within the provided delta').to.not.be.closeTo(1, 3);
@@ -144,7 +144,7 @@ module('mod', hooks => {
   });
 
   // expected-match
-  test('Contains expects expected-match', function () {
+  test('Contains expects expected-match', function() {
     expect('Message-1234-message', 'String should match the regex').to.be.match(/[a-zA-Z]+-\d+-[a-zA-Z]/);
     expect('1234-message', 'String should not match the regex').to.not.match(/[a-zA-Z]+-\d+-[a-zA-Z]/);
   });
@@ -185,6 +185,12 @@ module('mod', hooks => {
     expect(result).to.throw(TypeError, /x/);
     expect(result).to.throw(TypeError, 'x', 'Assertion Message');
     expect(result, 'Assertion Message').to.throw();
+  });
+
+  // test.each handled correctly
+  const testTable = [[true, true]];
+  test.each('Contains table', testTable, function(assert, [value, expected]) {
+    expect(value).to.eq(expected);
   });
 });
 
@@ -231,15 +237,15 @@ module('mod', hooks => {
     assert.notOk(undefined);
 
     // Variations in equal assertion
-    assert.equal(true, true);
-    assert.equal(true, true);
-    assert.equal(true, true);
-    assert.equal(
+    assert.strictEqual(true, true);
+    assert.strictEqual(true, true);
+    assert.strictEqual(true, true);
+    assert.strictEqual(
       find('[data-test-id=page-title]').innerText.trim(),
       '[Expected] Page Title',
       '[Message] Expression with message'
     );
-    assert.equal(window.location.pathname, '/support/login');
+    assert.strictEqual(window.location.pathname, '/support/login');
     assert.deepEqual({key: value}, {key: value});
     assert.deepEqual({key: value}, {key: value}, 'Assertion Message');
     assert.deepEqual({key: value}, {key: value});
@@ -251,8 +257,8 @@ module('mod', hooks => {
     assert.false(false, 'Message');
     assert.true(true);
     assert.true(true, 'Message');
-    assert.notEqual(1, 2);
-    await assert.notEqual(1, 2, 'Message');
+    assert.notStrictEqual(1, 2);
+    await assert.notStrictEqual(1, 2, 'Message');
 
     assert.notOk('Test', 'Message');
     assert.ok('Test', 'not empty assertion');
@@ -332,6 +338,12 @@ module('mod', hooks => {
     assert.throws(result, /x/);
     assert.throws(result, new TypeError('x'), 'Assertion Message');
     assert.throws(result, 'Assertion Message');
+  });
+
+  // test.each handled correctly
+  const testTable = [[true, true]];
+  test.each('Contains table', testTable, function(assert, [value, expected]) {
+    assert.strictEqual(value, expected);
   });
 });
 
@@ -475,9 +487,14 @@ module('mod', hooks => {
 **Input** (<small>[unmigratable.input.js](transforms/convert-chai-expect/__testfixtures__/unmigratable.input.js)</small>):
 ```js
 import { expect } from 'chai';
+import chai from 'chai';
 import { module, test } from 'qunit';
 
 module('mod', hooks => {
+  function myTest() {
+    expect(true).to.be.true;
+  }
+
   test('with unmigratable expect', function (assert) {
     //ember-mocha-to-qunit-codemod: migrated from mocha, consider using qunit assertions instead
     assert.expect(0);
@@ -506,9 +523,14 @@ module('mod', hooks => {
 **Output** (<small>[unmigratable.output.js](transforms/convert-chai-expect/__testfixtures__/unmigratable.output.js)</small>):
 ```js
 import { expect } from 'chai';
+import chai from 'chai';
 import { module, test } from 'qunit';
 
 module('mod', hooks => {
+  function myTest() {
+    expect(true).to.be.true;
+  }
+
   test('with unmigratable expect', function (assert) {
     //ember-mocha-to-qunit-codemod: migrated from mocha, consider using qunit assertions instead
     assert.expect(0);
@@ -519,7 +541,7 @@ module('mod', hooks => {
 
   test('with some migrated expects', function (assert) {
     expect('foo').to.be.foo;
-    assert.equal('foo', 'foo');
+    assert.strictEqual('foo', 'foo');
   });
 
   test('unmigratable special cases', function (assert) {

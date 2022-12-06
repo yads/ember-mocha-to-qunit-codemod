@@ -37,15 +37,15 @@ module('mod', hooks => {
     assert.notOk(undefined);
 
     // Variations in equal assertion
-    assert.equal(true, true);
-    assert.equal(true, true);
-    assert.equal(true, true);
-    assert.equal(
+    assert.strictEqual(true, true);
+    assert.strictEqual(true, true);
+    assert.strictEqual(true, true);
+    assert.strictEqual(
       find('[data-test-id=page-title]').innerText.trim(),
       '[Expected] Page Title',
       '[Message] Expression with message'
     );
-    assert.equal(window.location.pathname, '/support/login');
+    assert.strictEqual(window.location.pathname, '/support/login');
     assert.deepEqual({key: value}, {key: value});
     assert.deepEqual({key: value}, {key: value}, 'Assertion Message');
     assert.deepEqual({key: value}, {key: value});
@@ -57,8 +57,8 @@ module('mod', hooks => {
     assert.false(false, 'Message');
     assert.true(true);
     assert.true(true, 'Message');
-    assert.notEqual(1, 2);
-    await assert.notEqual(1, 2, 'Message');
+    assert.notStrictEqual(1, 2);
+    await assert.notStrictEqual(1, 2, 'Message');
 
     assert.notOk('Test', 'Message');
     assert.ok('Test', 'not empty assertion');
@@ -141,8 +141,8 @@ module('mod', hooks => {
   });
 
   // test.each handled correctly
-  const testTable = [[true, true]]
+  const testTable = [[true, true]];
   test.each('Contains table', testTable, function(assert, [value, expected]) {
-    assert.equal(value, expected);
-  })
+    assert.strictEqual(value, expected);
+  });
 });

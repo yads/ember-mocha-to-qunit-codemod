@@ -44,7 +44,7 @@ module.exports = [
     (name, path) => {
       let hasNot = hasNotQualifier(path);
       if (['equal', 'eq', 'equals'].includes(name) && !hasQualifier(path, 'deep')) {
-        return hasNot ? 'notEqual' : 'equal';
+        return hasNot ? 'notStrictEqual' : 'strictEqual';
       } else {
         return hasNot ? 'notDeepEqual' : 'deepEqual';
       }

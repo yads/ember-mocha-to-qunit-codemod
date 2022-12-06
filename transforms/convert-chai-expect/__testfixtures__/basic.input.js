@@ -89,7 +89,7 @@ module('mod', hooks => {
   });
 
   // expected-closeto
-  test('Contains expects expected-match', function () {
+  test('Contains expects expected-match', function() {
     expect(165, 'check whether the given number exists within the provided delta').to.be.closeTo(168, 3);
     expect(2.5).to.be.closeTo(2, 0.5);
     expect(165, 'check whether the given number exists within the provided delta').to.not.be.closeTo(1, 3);
@@ -97,7 +97,7 @@ module('mod', hooks => {
   });
 
   // expected-match
-  test('Contains expects expected-match', function () {
+  test('Contains expects expected-match', function() {
     expect('Message-1234-message', 'String should match the regex').to.be.match(/[a-zA-Z]+-\d+-[a-zA-Z]/);
     expect('1234-message', 'String should not match the regex').to.not.match(/[a-zA-Z]+-\d+-[a-zA-Z]/);
   });
@@ -141,8 +141,8 @@ module('mod', hooks => {
   });
 
   // test.each handled correctly
-  const testTable = [[true, true]]
+  const testTable = [[true, true]];
   test.each('Contains table', testTable, function(assert, [value, expected]) {
     expect(value).to.eq(expected);
-  })
+  });
 });
