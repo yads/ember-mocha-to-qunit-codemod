@@ -29,6 +29,8 @@ node ./bin/cli.js convert-chai-expect path/of/files/ or/some**/*glob.js
   * [qunit-dom](https://npmjs.com/package/qunit-dom)
 * If a migration results in assertions listed above a warning message will be displayed.
 Ensure you add any required plugins to your project.
+* By default chai-dom assertions will convert `text` matcher to `hasText`/`doesNotHaveText`. If you prefer
+to use `includesText`/`doesNotIncludeText` use the `--include-text` flag to this codemod.
 
 ## Custom migrations
 

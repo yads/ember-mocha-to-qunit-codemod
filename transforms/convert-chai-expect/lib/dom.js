@@ -1,6 +1,9 @@
 'use strict';
 
 const { assertionInfo, showWarnings, basicMatcher, stringToExpression } = require('./utils');
+const { getOptions } = require('codemod-cli');
+
+const useIncludeText = getOptions().includeText;
 
 function getDomArgs(args) {
   let firstArg = args[0];
@@ -72,7 +75,11 @@ module.exports = {
         identifier = hasNot ? 'doesNotHaveClass' : 'hasClass';
       }
       if (property.name === 'text') {
-        identifier = hasNot ? 'doesNotHaveText' : 'hasText';
+        if (useIncludeText) {
+          identifier = hasNot ? 'doesNotIncludeText' : 'includesText';
+        } else {
+          identifier = hasNot ? 'doesNotHaveText' : 'hasText';
+        }
       }
       if (property.name === 'value') {
         identifier = hasNot ? 'doesNotHaveValue' : 'hasValue';
