@@ -98,8 +98,8 @@ module('mod', hooks => {
 
   // expected-match
   test('Contains expects expected-match', function(assert) {
-    assert.match('Message-1234-message', /[a-zA-Z]+-\d+-[a-zA-Z]/, 'String should match the regex');
-    assert.notMatch('1234-message', /[a-zA-Z]+-\d+-[a-zA-Z]/, 'String should not match the regex');
+    assert.matches('Message-1234-message', /[a-zA-Z]+-\d+-[a-zA-Z]/, 'String should match the regex');
+    assert.notMatches('1234-message', /[a-zA-Z]+-\d+-[a-zA-Z]/, 'String should not match the regex');
   });
 
   // 'expected-null'

@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-  qunitAssertionsExtras: {
+  qunitAssertionsExtra: {
     shown: false,
-    message: "Ensure you add 'qunit-assertions-extras' package.",
+    message: "Ensure you add 'qunit-assertions-extra' package.",
   },
   qunitAssertClose: {
     shown: false,

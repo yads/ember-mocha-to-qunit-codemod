@@ -23,7 +23,7 @@ node ./bin/cli.js convert-chai-expect path/of/files/ or/some**/*glob.js
 * Supports assertions from the following chai plugins:
   * [chai-dom](https://www.npmjs.com/package/chai-dom)
 * Some assertions require third party qunit plugins. These include:
-  * [qunit-assertions-extras](https://www.npmjs.com/package/qunit-assertions-extra)
+  * [qunit-assertions-extra](https://www.npmjs.com/package/qunit-assertions-extra)
   * [qunit-assert-close](https://www.npmjs.com/package/qunit-assert-close)
   * [qunit-assert-compare](https://www.npmjs.com/package/qunit-assert-compare)
   * [qunit-dom](https://npmjs.com/package/qunit-dom)

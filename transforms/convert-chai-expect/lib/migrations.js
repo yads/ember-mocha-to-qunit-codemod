@@ -57,14 +57,14 @@ module.exports = [
     ['contain', 'contains', 'include', 'includes', 'string', 'oneOf'],
     ['contains', 'notContains'],
     false,
-    'qunitAssertionsExtras'
+    'qunitAssertionsExtra'
   ),
 
   // oneOf
   {
     matcher: basicMatcher('oneOf'),
     transform(path, j) {
-      showWarnings('qunitAssertionsExtras');
+      showWarnings('qunitAssertionsExtra');
 
       let args = path.value.arguments;
       let { callExpr, hasNot } = assertionInfo(path);
@@ -94,7 +94,7 @@ module.exports = [
   basicMigration('closeTo', ['close', 'notClose'], false, 'qunitAssertClose'),
 
   // match
-  basicMigration('match', ['match', 'notMatch'], false, 'qunitAssertionsExtras'),
+  basicMigration('match', ['matches', 'notMatches'], false, 'qunitAssertionsExtra'),
 
   // lt, gt, least, most, etc
   basicMigration(
