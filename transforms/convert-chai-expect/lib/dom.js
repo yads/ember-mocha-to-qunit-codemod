@@ -1,6 +1,13 @@
 'use strict';
 
-const { assertionInfo, showWarnings, basicMatcher, stringToExpression } = require('./utils');
+const {
+  assertionInfo,
+  showWarnings,
+  basicMatcher,
+  stringToExpression,
+  findLastMember,
+  hasNotQualifier,
+} = require('./utils');
 const { getOptions } = require('codemod-cli');
 
 const useIncludeText = getOptions().includeText;
@@ -12,8 +19,13 @@ function getDomArgs(args) {
     return firstArg.arguments;
   }
 
-  if (firstArg?.type === 'CallExpression' && firstArg?.callee?.property.name === 'querySelector') {
-    return firstArg.arguments;
+  if (firstArg?.type === 'CallExpression') {
+    const callee = firstArg?.callee;
+
+    // if document.querySelector or this.element.querySelector
+    if (callee?.property.name === 'querySelector' && callee?.object?.name === 'document') {
+      return firstArg.arguments;
+    }
   }
 
   return [firstArg];
@@ -67,10 +79,41 @@ module.exports = {
           j.callExpression(j.identifier(identifier), [...styleArgs, ...args.slice(1)])
         )
       );
-    } else {
-      if (['attr', 'attribute'].includes(property.name)) {
+    } else if (property.name === 'attr' || property.name === 'attribute') {
+      // special case of attribute expectation chaining
+      // e.g. .attribute('href').eq('link')
+      if (callExpr.parent.value.type === 'MemberExpression') {
+        // treat it like another layer of expectation
+        let attrLastMember = findLastMember(callExpr);
+        if (
+          ['eq', 'equal', 'equals', 'eql', 'match'].includes(attrLastMember.value.property.name) &&
+          attrLastMember.parent.value.type === 'CallExpression'
+        ) {
+          identifier = hasNotQualifier(callExpr) ? 'doesNotHaveAttribute' : 'hasAttribute';
+          j(attrLastMember.parent).replaceWith(
+            j.memberExpression(
+              dom,
+              j.callExpression(j.identifier(identifier), [
+                ...callExpr.value.arguments,
+                ...attrLastMember.parent.value.arguments,
+                ...args.slice(1),
+              ])
+            )
+          );
+        }
+      } else {
         identifier = hasNot ? 'doesNotHaveAttribute' : 'hasAttribute';
+        j(callExpr).replaceWith(
+          j.memberExpression(
+            dom,
+            j.callExpression(j.identifier(identifier), [
+              ...callExpr.value.arguments,
+              ...args.slice(1),
+            ])
+          )
+        );
       }
+    } else {
       if (property.name === 'class') {
         identifier = hasNot ? 'doesNotHaveClass' : 'hasClass';
       }

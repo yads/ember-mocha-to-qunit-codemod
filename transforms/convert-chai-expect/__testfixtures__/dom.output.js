@@ -6,6 +6,7 @@ module('mod', hooks => {
     assert.dom('[data-test-id=page-title]').hasAttribute('href', 'link');
     assert.dom('[data-test-id=page-title]').hasAttribute('aria-label', 'label', 'Assertion Message');
     assert.dom('[data-test-id=page-title]').hasAttribute('disabled');
+    assert.dom('[data-test-id=page-title]').hasAttribute('href', 'link');
     assert.dom('[data-test-id=page-title]').hasClass('text--bold');
     assert.dom(findAll('[data-test-id=page-title]')[1]).hasClass('text--bold');
 
@@ -36,6 +37,7 @@ module('mod', hooks => {
     assert.dom('[data-test-id=page-title]').hasAttribute('href', 'link');
     assert.dom('[data-test-id=page-title]').hasAttribute('aria-label', 'label', 'Assertion Message');
     assert.dom('[data-test-id=page-title]').hasAttribute('disabled');
+    assert.dom('[data-test-id=page-title]').hasAttribute('href', 'link');
     assert.dom('[data-test-id=page-title]').hasClass('text--bold');
     assert.dom(document.querySelectorAll('[data-test-id=page-title]')[1]).hasClass('text--bold');
 
@@ -49,6 +51,7 @@ module('mod', hooks => {
     assert.dom(pageTitleSelector).hasAttribute('href', 'link');
     assert.dom(pageTitleSelector).isFocused();
     assert.dom(pageTitleSelector).hasText(inputVariable, 'Assertion Message');
+    assert.dom(pageTitleSelector.querySelector('span')).isVisible();
 
     assert.dom('[data-test-id=page-title]').doesNotHaveAttribute('disabled', 'Assertion Message');
     assert.dom('[data-test-id=page-title]').isNotFocused();
